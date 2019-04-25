@@ -41,6 +41,7 @@ import re
 import sys
 import textwrap
 import unicodedata
+import codecs
 
 py3k = sys.version_info[0] >= 3
 if py3k:
@@ -1413,7 +1414,15 @@ class PrettyTable(object):
             linebreak = "<br>"
 
         open_tag = []
-        open_tag.append("<table")
+        lines.append("<!DOCTYPE html>")
+        lines.append("<html lang=\"en\">")
+        lines.append("<head>")
+        lines.append("<meta charset=\"utf-8\">")
+        lines.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">")
+        lines.append("</head>")
+        lines.append("<body>")
+
+        lines.append("<table class=\"minimalistBlack\"")
         if options["attributes"]:
             for attr_name in options["attributes"]:
                 open_tag.append(" %s=\"%s\"" % (attr_name, options["attributes"][attr_name]))
@@ -1449,7 +1458,8 @@ class PrettyTable(object):
             lines.append("    </tr>")
 
         lines.append("</table>")
-
+        lines.append("</body>")
+        lines.append("</html>")
         return self._unicode("\n").join(lines)
 
     def _get_formatted_html_string(self, options):
@@ -1722,9 +1732,9 @@ def main():
     x.add_row(["Sydney", 2058, 4336374, 1214.8])
     x.add_row(["Melbourne", 1566, 3806092, 646.9])
     x.add_row(["Perth", 5386, 1554769, 869.4])
+    print(x.get_string())
+
     print(x)
-    
-    print
     
     print("Generated using constructor arguments:")
     

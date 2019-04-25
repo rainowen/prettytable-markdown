@@ -138,7 +138,7 @@ The old `x.printt()` method from versions 0.5 and earlier has been removed.
 To pass options changing the look of the table, use the `get_string()` method
 documented below:
 
-`print x.get_string()`
+`print(x.get_string())`
 
 ### Stringing
 
@@ -437,6 +437,8 @@ supports the `fields`, `start`, `end`, `sortby` and `reversesort` arguments in
 exactly the same way as ASCII printing.
 
 ### Styling HTML tables
+
+`print(x.get_html_string())`
 
 By default, PrettyTable outputs HTML for "vanilla" tables.  The HTML code is
 quite simple.  It looks like this:
