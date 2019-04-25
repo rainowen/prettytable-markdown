@@ -183,7 +183,7 @@ class PrettyTable(object):
 
         self._vertical_char = kwargs["vertical_char"] or self._unicode("|")
         self._horizontal_char = kwargs["horizontal_char"] or self._unicode("-")
-        self._junction_char = kwargs["junction_char"] or self._unicode("+")
+        self._junction_char = kwargs["junction_char"] or self._unicode("|")
         
         if kwargs["print_empty"] in (True, False):
             self._print_empty = kwargs["print_empty"]
@@ -1182,7 +1182,8 @@ class PrettyTable(object):
 
         # Add bottom of border
         if options["border"] and options["hrules"] == FRAME:
-            lines.append(self._hrule)
+            #lines.append(self._hrule)
+            lines.append("\n")
         
         return self._unicode("\n").join(lines)
 
@@ -1219,16 +1220,18 @@ class PrettyTable(object):
         if options["border"]:
             if options["vrules"] == ALL:
                 options["vrules"] = FRAME
-                lines.append(self._stringify_hrule(options))
+                #lines.append(self._stringify_hrule(options))
                 options["vrules"] = ALL
             elif options["vrules"] == FRAME:
                 lines.append(self._stringify_hrule(options))
         bits = []
         endpoint = options["vertical_char"] if options["vrules"] in (ALL, FRAME) else " "
-        bits.append(endpoint)
-        title = " "*lpad + title + " "*rpad
-        bits.append(self._justify(title, len(self._hrule)-2, "c"))
-        bits.append(endpoint)
+        #bits.append(endpoint)
+        #title = " "*lpad + title + " "*rpad
+        title = "# " + title
+        #bits.append(self._justify(title, len(self._hrule)-2, "c"))
+        #bits.append(endpoint)
+        bits.append(title)
         lines.append("".join(bits))
         return "\n".join(lines)
 
@@ -1238,7 +1241,7 @@ class PrettyTable(object):
         lpad, rpad = self._get_padding_widths(options)
         if options["border"]:
             if options["hrules"] in (ALL, FRAME):
-                bits.append(self._hrule)
+                #bits.append(self._hrule)
                 bits.append("\n")
             if options["vrules"] in (ALL, FRAME):
                 bits.append(options["vertical_char"])
